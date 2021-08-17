@@ -1,4 +1,5 @@
 import DefaultWebdriverTorsoSettings from "./DefaultWebdriverTorsoSettings";
+import RandomNumberGenerator from "./RandomNumberGenerator";
 import WebdriverTorsoSettings from "./WebdriverTorsoSettings";
 
 export default class WebdriverTorso {
@@ -28,13 +29,19 @@ export default class WebdriverTorso {
     const colors = this._settings.colors;
     const canvas = this._canvas;
     const ctx = this._ctx;
+    const random = new RandomNumberGenerator();
 
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     for (let i = 0; i < colors.length; i += 1) {
+      const width = random.nextInteger(10, 100);
+      const height = random.nextInteger(10, 100);
+      const x = random.nextInteger(0, canvas.width - width);
+      const y = random.nextInteger(0, canvas.height - height);
+
       ctx.fillStyle = colors[i];
-      ctx.fillRect(i * 20, 0, 20, 20);
+      ctx.fillRect(x, y, width, height);
     }
   }
 }
