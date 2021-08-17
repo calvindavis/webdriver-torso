@@ -7,22 +7,40 @@
     <div id="a"></div>
     <div id="b"></div>
     <div id="c"></div>
+    <div id="d">
+      <button id="d-button" type="button">Toggle</button>
+    </div>
 
     <script type="module">
       import WebdriverTorso from "./";
 
       const a = new WebdriverTorso();
       document.querySelector("#a").appendChild(a.canvas);
+      a.start();
+      window.a = a;
 
-      const b = new WebdriverTorso({
+      new WebdriverTorso({
         colors: ["green", "yellow", "orange"],
+        parent: document.querySelector("#b"),
       });
-      document.querySelector("#b").appendChild(b.canvas);
 
-      const c = new WebdriverTorso({
+      new WebdriverTorso({
         colors: ["#aaa", "#bbb", "#ccc", "#ddd", "#eee"],
+        interval: 2000,
         parent: document.querySelector("#c"),
       });
+
+      const d = new WebdriverTorso({
+        colors: ["pink"],
+        interval: 150,
+        parent: document.querySelector("#d"),
+      });
+
+      document
+        .querySelector("#d-button")
+        .addEventListener("click", function () {
+          d.toggle();
+        });
     </script>
   </body>
 </html>

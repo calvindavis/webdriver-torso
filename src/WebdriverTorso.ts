@@ -6,9 +6,35 @@ export default class WebdriverTorso {
   private readonly _settings: WebdriverTorsoSettings;
   private readonly _canvas: HTMLCanvasElement;
   private readonly _ctx: CanvasRenderingContext2D;
+  private _intervalId: NodeJS.Timer;
 
   public get canvas(): HTMLCanvasElement {
     return this._canvas;
+  }
+
+  public get playing(): boolean {
+    return this._intervalId != null;
+  }
+
+  public start(): void {
+    if (this.playing === false) {
+      this._intervalId = setInterval(this._render, this._settings.interval);
+    }
+  }
+
+  public stop(): void {
+    if (this.playing) {
+      clearInterval(this._intervalId);
+      this._intervalId = null;
+    }
+  }
+
+  public toggle(): void {
+    if (this.playing) {
+      this.stop();
+    } else {
+      this.start();
+    }
   }
 
   constructor(settings: WebdriverTorsoSettings = null) {
@@ -20,12 +46,13 @@ export default class WebdriverTorso {
 
     if (this._settings.parent) {
       this._settings.parent.appendChild(this._canvas);
+      this.start();
     }
 
     this._render();
   }
 
-  private _render(): void {
+  private _render = (): void => {
     const colors = this._settings.colors;
     const canvas = this._canvas;
     const ctx = this._ctx;
@@ -43,5 +70,5 @@ export default class WebdriverTorso {
       ctx.fillStyle = colors[i];
       ctx.fillRect(x, y, width, height);
     }
-  }
+  };
 }
