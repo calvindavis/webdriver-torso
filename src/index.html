@@ -8,6 +8,12 @@
       import WebdriverTorso from "./";
 
       new WebdriverTorso();
+      new WebdriverTorso({
+        colors: ["green", "yellow", "orange"],
+      });
+      new WebdriverTorso({
+        parent: document.body,
+      });
     </script>
   </body>
 </html>
