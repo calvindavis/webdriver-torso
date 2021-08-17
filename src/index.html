@@ -4,15 +4,23 @@
     <title>webdriver torso</title>
   </head>
   <body>
+    <div id="a"></div>
+    <div id="b"></div>
+    <div id="c"></div>
+
     <script type="module">
       import WebdriverTorso from "./";
 
-      new WebdriverTorso();
-      new WebdriverTorso({
+      const a = new WebdriverTorso();
+      document.querySelector("#a").appendChild(a.canvas);
+
+      const b = new WebdriverTorso({
         colors: ["green", "yellow", "orange"],
       });
-      new WebdriverTorso({
-        parent: document.body,
+      document.querySelector("#b").appendChild(b.canvas);
+
+      const c = new WebdriverTorso({
+        parent: document.querySelector("#c"),
       });
     </script>
   </body>
